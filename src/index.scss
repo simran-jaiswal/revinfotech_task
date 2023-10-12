@@ -1,0 +1,45 @@
+// Colors Variables
+$black-800: #151b28;
+$black-900: #0c0f17;
+$white: #fff;
+
+// Dimensions
+$borderRadiusTiny: 40px;
+$contentHeight: 95vh;
+
+// -- main --
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+html,
+body,
+#root,
+.app {
+  width: 100%;
+  min-height: 100vh;
+  background: $black-800;
+  color: $white;
+  font-size: 10px;
+}
+
+.content {
+  border-radius: $borderRadiusTiny;
+  background: $black-900;
+  min-height: $contentHeight;
+  margin-top: calc((100vh - $contentHeight) / 2);
+}
+
+.mobileLogo {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobileLogo {
+    display: block;
+  }
+}
