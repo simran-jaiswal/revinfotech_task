@@ -9,7 +9,7 @@ import shib24 from '../../assets/bridge/shib-24.svg';
 import eth24 from '../../assets/bridge/eth-24.svg';
 import eth18 from '../../assets/bridge/eth-18.svg';
 import dropdown2 from '../../assets/bridge/dropdown-2.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 
 /* eslint-disable react/prop-types */
@@ -91,93 +91,98 @@ const Bridge = () => {
   const changeSelectedTabBridge = (tab) => {
     setSelectedTab(tab);
   };
+
   return (
     <Container className='bridge-container'>
       <Buttons />
       <Row className='bridge-inner-container'>
-        <Col className='overview' md={5} sm={12}>
-          <div>
-            <div className='bridge-heading'>Shibarium Bridge</div>
-            {selectedTab === 'deposit' && depositContentList.map((content, i) => (
-              <TextView key={i} {...content} />
-            ))}
-            {selectedTab === 'withdraw' && withdrawContentList.map((content, i) => (
-              <TextView key={i} {...content} />
-            ))}
-          </div>
-          <div>
-            {selectedTab === 'withdraw' && <div className='gas-fee'>
-              <div className='text'>
-                <img src={gasFee2} className='me-2' alt='' /> Estimation of GAS
-                fee required
-              </div>
-              <div className='fee'>$10.00</div>
-            </div>}
-            <div className='gas-fee'>
-              <div className='text'>
-                <img src={gasFee} className='me-2' alt='' /> Estimation of GAS
-                fee required
-              </div>
-              <div className='fee'>$10.00</div>
+        <Col md={6} sm={12}>
+          <div className='overview'>
+            <div>
+              <div className='bridge-heading'>Shibarium Bridge</div>
+              {selectedTab === 'deposit' && depositContentList.map((content, i) => (
+                <TextView key={i} {...content} />
+              ))}
+              {selectedTab === 'withdraw' && withdrawContentList.map((content, i) => (
+                <TextView key={i} {...content} />
+              ))}
             </div>
-            <div className='bridge-button-group'>
-              <div>How Shibarium works</div>
-              <div>FAQs</div>
+            <div>
+              {selectedTab === 'withdraw' && <div className='gas-fee'>
+                <div className='text'>
+                  <img src={gasFee2} className='me-2' alt='' /> Estimation of GAS
+                  fee required
+                </div>
+                <div className='fee'>$10.00</div>
+              </div>}
+              <div className='gas-fee'>
+                <div className='text'>
+                  <img src={gasFee} className='me-2' alt='' /> Estimation of GAS
+                  fee required
+                </div>
+                <div className='fee'>$10.00</div>
+              </div>
+              <div className='bridge-button-group'>
+                <div>How Shibarium works</div>
+                <div>FAQs</div>
+              </div>
             </div>
           </div>
         </Col>
-        <Col className='transaction' md={6} sm={12}>
-          <div className='to-box'>
-            <div
-              className={selectedTab === 'deposit' ? 'active' : 'tab'}
-              onClick={() => changeSelectedTabBridge('deposit')}
-            >
-              Deposit
-            </div>
-            <div
-              className={selectedTab === 'withdraw' ? 'active' : 'tab'}
-              onClick={() =>changeSelectedTabBridge('withdraw')}
-            >
-              Withdraw
-            </div>
-          </div>
-          <div>
-            <div className='to-heading'>From</div>
+        <Col md={6} sm={12}>
+          <div className='transaction' >
             <div className='to-box'>
-              <div className='name'>
-                
-                {selectedTab ==='deposit' ? <img src={eth24} /> : <img src={shib24} />}
-                {selectedTab ==='deposit' ? 'Ethereum Chain' : 'Shibarium Mainnet'}
+              <div
+                className={selectedTab === 'deposit' ? 'active' : 'tab'}
+                onClick={() => changeSelectedTabBridge('deposit')}
+              >
+                Deposit
               </div>
-              <div className='balance-amount'>
-                Balance: <b>{selectedTab ==='deposit' ? '100.00ETH' : '100 BONE'}</b>
-              </div>
-            </div>
-            <div className='dropdown-box'>
-              <div className='dropdown-eth'>
-                {selectedTab ==='deposit' ? <img src={eth18} /> : <img src={gasFee2} />}
-                {selectedTab ==='deposit' ? 'ETH' : 'BONE'}
-                <img src={dropdown2} />
-              </div>
-              <div className='to-box-2'>
-                <div className='name'>0.00</div>
-                <div className='max'>MAX</div>
+              <div
+                className={selectedTab === 'withdraw' ? 'active' : 'tab'}
+                onClick={() => changeSelectedTabBridge('withdraw')}
+              >
+                Withdraw
               </div>
             </div>
+            <div>
+              <div className='to-heading'>From</div>
+              <div className='to-box'>
+                <div className='name'>
+
+                  {selectedTab === 'deposit' ? <img src={eth24} /> : <img src={shib24} />}
+                  {selectedTab === 'deposit' ? 'Ethereum Chain' : 'Shibarium Mainnet'}
+                </div>
+                <div className='balance-amount'>
+                  Balance: <b>{selectedTab === 'deposit' ? '100.00ETH' : '100 BONE'}</b>
+                </div>
+              </div>
+              <div className='dropdown-box'>
+                <div className='dropdown-eth'>
+                  {selectedTab === 'deposit' ? <img src={eth18} /> : <img src={gasFee2} />}
+                  {selectedTab === 'deposit' ? 'ETH' : 'BONE'}
+                  <img src={dropdown2} />
+                </div>
+                <div className='to-box-2'>
+                  <div className='name'>0.00</div>
+                  <div className='max'>MAX</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className='to-heading'>To</div>
+              <div className='to-box'>
+                <div className='name'>
+                  {selectedTab !== 'deposit' ? <img src={eth24} /> : <img src={shib24} />}
+                  {selectedTab !== 'deposit' ? 'Ethereum Chain' : 'Shibarium Mainnet'}
+                </div>
+                <div className='balance-amount'>
+                  Balance: <b>0ETH</b>
+                </div>
+              </div>
+            </div>
+            <div className='transfer-button'>Transfer</div>
           </div>
-          <div>
-            <div className='to-heading'>To</div>
-            <div className='to-box'>
-              <div className='name'>
-                {selectedTab !=='deposit' ? <img src={eth24} /> : <img src={shib24} />}
-                {selectedTab !=='deposit' ? 'Ethereum Chain' : 'Shibarium Mainnet'}
-              </div>
-              <div className='balance-amount'>
-                Balance: <b>0ETH</b>
-              </div>
-            </div>
-          </div>
-          <div className='transfer-button'>Transfer</div>
         </Col>
       </Row>
     </Container>
@@ -187,8 +192,22 @@ const Bridge = () => {
 export default Bridge;
 
 function Buttons() {
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    }
+  }, []);
+
+  const isMobile = width <= 768;
   return (
-    <div className='d-flex gap-4 justify-content-end'>
+    <div className={isMobile ? 'd-flex gap-4 justify-content-center' : 'd-flex gap-4 justify-content-end me-5'}>
       <button type='button' className='appButton'>
         <i>
           <img src={appsIcon} alt='apps' />
@@ -196,17 +215,18 @@ function Buttons() {
         Apps
       </button>{' '}
       <button type='button' className='appButton ethButton'>
-        Switch to Ethereum
+        {isMobile ? 'Switch to Eth' : 'Switch to Ethereum'}
       </button>{' '}
       <button type='button' className='appButton profileButton'>
         <i style={{ background: 'white' }} className='rounded-pill p-2'>
           <img src={MetaMask_Fox} alt='apps' />
         </i>
-        0x21A...48A5
+        {!isMobile && " 0x21A...48A5"}
         <i>
           <img src={downArrow} alt='apps' />
         </i>
       </button>
     </div>
+
   );
 }
